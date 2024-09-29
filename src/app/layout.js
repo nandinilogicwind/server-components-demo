@@ -1,5 +1,9 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import { ApolloWrapper } from "../lib/apollo-wrapper";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+import Layout from "../components/layout/Layout";
+import { AppContextProvider } from "../../AppContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -21,7 +25,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <AppContextProvider>
+          <AntdRegistry>
+            <ApolloWrapper>
+              <Layout>{children}</Layout>
+            </ApolloWrapper>
+          </AntdRegistry>
+        </AppContextProvider>
       </body>
     </html>
   );
